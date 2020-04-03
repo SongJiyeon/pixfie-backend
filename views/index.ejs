@@ -6,6 +6,11 @@
   </head>
   <body>
     <h1><%= title %></h1>
+    <% if (loggedIn) { %>
+      <form action="/api/auth/logout" method="GET">
+        <input type="submit" value="logout" />
+      </form>
+    <% } %>
     <p>Welcome to <%= title %></p>
   </body>
 </html>
