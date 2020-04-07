@@ -19,6 +19,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const photoRouter = require('./routes/photo');
 
 const User = require('./models/User');
 
@@ -38,7 +39,7 @@ passport.use(new LocalStrategy({
   try {
     const user = await User.findOne({ user_id: user_id });
     if (!user) {
-      return done(null, false, { message: '등록되지 않은 이메일입니다' });
+      return done(null, false, { message: '등록되지 않은 아이디입니다' });
     }
     if (!bcrypt.compareSync(password, user.passwordHash)) {
       return done(null, false, { message: '비밀번호를 잘못 입력하셨습니다' });
@@ -82,6 +83,7 @@ passport.deserializeUser((user, done) => {
 app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/photo', photoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

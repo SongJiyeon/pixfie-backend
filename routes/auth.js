@@ -11,14 +11,16 @@ router.get('/login', passport.authenticate('local'));
 
 router.post('/login',
   passport.authenticate('local', { failureRedirect: '/api/login', failureFlash: true }),
-  (req, res) => {
+  async (req, res) => {
     delete req.session.flash;
-    return res.redirect('/api');
+    const user = await User.findById(req.session.passport.user);
+    return res.json(user);
 });
 
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/api');
+  console.log(req.isAuthenticated());
+  return res.json({ "result": "ok" });
 });
 
 router.get('/signup', (req, res) => {
@@ -30,9 +32,7 @@ router.post('/signup', validateId, async (req, res) => {
     ...req.body,
     passwordHash: bcrypt.hashSync(req.body.password, Number(process.env.BCRYPT_SALT_ROUNDS))
   });
-
-  res.json({ "result": "ok" });
-  return res.redirect('/api/login')
+  return res.json({ "result": "ok" });
 });
 
 module.exports = router;

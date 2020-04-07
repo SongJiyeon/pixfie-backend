@@ -13,7 +13,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  profile_url: String,
+  profile_url: {
+    type: String,
+    default: 'https://i.dlpng.com/static/png/6863421_preview.png'
+  },
   photos: [mongoose.ObjectId],
   followers: [mongoose.ObjectId],
   followings: [mongoose.ObjectId]
