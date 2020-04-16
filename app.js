@@ -16,7 +16,10 @@ const authRouter = require('./routes/auth');
 const app = express();
 
 mongoose.set('useCreateIndex', true);
-mongoose.connect(process.env.DB_HOST, {
+
+const DB_URL = process.env.NODE_ENV === 'dev' ? process.env.DB_HOST : process.env.DB_TEST_HOST;
+
+mongoose.connect(DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false

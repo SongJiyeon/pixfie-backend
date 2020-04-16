@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 
 const PhotoSchema = new mongoose.Schema({
-  image_url: {
-    type: String,
+  faceType: {
+    type: Object,
     required: true
   },
   date: Date,
-  likes: Number,
   like_users: [mongoose.ObjectId]
 });
 
