@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const UserSchema = new mongoose.Schema({
   user_id: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   user_name: {
     type: String,
@@ -15,7 +16,7 @@ const UserSchema = new mongoose.Schema({
   },
   profile_url: {
     type: String,
-    default: 'https://i.dlpng.com/static/png/6863421_preview.png'
+    default: 'https://pixfie.s3.ap-northeast-2.amazonaws.com/photos/pngkey.com-jake-png-2469451.png'
   },
   photos: [mongoose.ObjectId],
   followers: [mongoose.ObjectId],
